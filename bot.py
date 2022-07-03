@@ -46,7 +46,30 @@ Buss2 = get_content(html2.text)
 bot = telebot.TeleBot('5511831490:AAHIzJrn2dd1uHGI1TDnkxa6sLwATUWcMNA')  
   
 @bot.message_handler(commands=['start'])  
-def start(message):   
+def start(message):
+
+    markup_na4alo = types.ReplyKeyboardMarkup(resize_keyboard=True)
+    btn1_na4 = types.KeyboardButton("Поиск по названию 📝")
+    btn2_na4 = types.KeyboardButton("Поиск по алфавиту 🔎")
+    markup_na4alo.add(btn1_na4)
+    markup_na4alo.add(btn2_na4)
+    
+   
+
+
+   
+    
+    bot.send_message(message.chat.id, 'Я бот, который может помочь тебе с расписанием автобусов', parse_mode='html', reply_markup=markup_na4alo)
+    
+  
+@bot.message_handler(func=lambda message: True)  
+def businfo(message):
+    markup_na4alo = types.ReplyKeyboardMarkup(resize_keyboard=True)
+    btn1_na4 = types.KeyboardButton("Поиск по названию 📝")
+    btn2_na4 = types.KeyboardButton("Поиск по алфавиту 🔎")
+    markup_na4alo.add(btn1_na4)
+    markup_na4alo.add(btn2_na4)
+
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True,)
     btn1 = types.KeyboardButton("А")
     btn2 = types.KeyboardButton("Б")
@@ -75,36 +98,36 @@ def start(message):
     btn25 = types.KeyboardButton("Э")
     btn26 = types.KeyboardButton("Ю")
     btn27 = types.KeyboardButton("Я")
-
+    btn28 = types.KeyboardButton("Назад")
     markup.add(btn1, btn2, btn3)
     markup.add(btn4, btn5, btn6)
-    markup.add(btn7,btn8,btn9)
+    markup.add(btn7, btn8, btn9)
     markup.add(btn10, btn11, btn12)
     markup.add(btn13, btn14, btn15)
     markup.add(btn16, btn17, btn18)
     markup.add(btn19, btn20, btn21)
     markup.add(btn22, btn23, btn24)
     markup.add(btn25, btn26, btn27)
+    markup.add(btn28)
     
-   
+    markup_ost = types.ReplyKeyboardMarkup(resize_keyboard=True)
+    btn1_ost = types.KeyboardButton("Дом министреств")
+    btn2_ost = types.KeyboardButton("Министерство иностранных дел")
+    markup_ost.add(btn1_ost, btn2_ost)
 
 
-   
-    
-    bot.send_message(message.chat.id, 'Я бот, который может помочь тебе с расписанием автобусов', parse_mode='html', reply_markup=markup)
-    
-  
-@bot.message_handler(func=lambda message: True)  
-def businfo(message):
-    markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
-    btn1 = types.KeyboardButton("Дом министреств")
-    btn2 = types.KeyboardButton("Министерство иностранных дел")
-    markup.add(btn1, btn2)
+    if message.text == "Поиск по названию 📝":
+        bot.send_message(message.chat.id, "Отпарвьте мне название остановки")
+    if message.text == "Поиск по алфавиту 🔎":
+        bot.send_message(message.chat.id, "Найдите свою остановку в алфавитном порядке",reply_markup=markup)
+
+
     if message.text == "Дом министреств":
         bot.send_message(message.chat.id,''.join(map(str, Buss)), parse_mode='html')
-        pass
     if message.text == "Министерство иностранных дел":
-        bot.send_message(message.chat.id, ''.join(map(str, Buss2)), parse_mode='html') 
+        bot.send_message(message.chat.id, ''.join(map(str, Buss2)), parse_mode='html')
+    if message.text == "Назад":
+        bot.send_message(message.chat.id, "Главное меню", reply_markup=markup_na4alo)
 
 
         # bot.send_message(message.chat.id, 'Информация о прибытии автобусов на остановку "Дом министреств"', parse_mode='html',)  
